@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Authorization Code</title>
+</head>
+
+<body>
+    <div>
+    {% block content %}
+        <div>
+            <p>Your access token is <b>{{token.access_token}}</b></p>
+            <p>The type of this token is <b>{{token.token_type}}</b>.</p>
+            <p>This token will expire in <b>{{token.expires_in}}</b>.</p>
+            <p>Your refresh token is <b>{{token.refresh_token}}</b></p>
+            <p>You can access <b>{{token.scope}}</b> using this token.</p>
+        </div>
+    {% endblock %}
+    </div>
+</body>
+</html>
