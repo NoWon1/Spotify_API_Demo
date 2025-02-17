@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Music database</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <!-- Styles --> 
+    <style>
+    body {
+      margin: 0;
+      font-family: "Lato", sans-serif;
+    }
+    .glyphicon {
+       font-size: 50px;
+     }
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      background-color: #f1f1f1;
+      position: fixed;
+      height: 100%;
+      overflow: auto;
+    }
+    
+    .sidebar a {
+      display: block;
+      color: black;
+      padding: 16px;
+      text-decoration: none;
+    }
+     
+    .sidebar a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+    
+    .sidebar a:hover:not(.active) {
+      background-color: #555;
+      color: white;
+    }
+    
+    div.content {
+      margin-left: 200px;
+      padding: 1px 16px;
+      height: 1000px;
+    }
+
+    .card {
+        height: 100%;
+        margin-bottom: 10px;
+        box-shadow:  rgba(0, 0, 0, 0.2);
+        text-align: center;
+        background-color: #f1f1f1;
+    }
+  /* Clear floats after the columns */
+
+
+    
+    
+
+    @media screen and (max-width: 700px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .sidebar a {float: left;}
+      div.content {margin-left: 0;}
+    }
+    
+    @media screen and (max-width: 400px) {
+      .sidebar a {
+        text-align: center;
+        float: none;
+      } 
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 15vw;
+        object-fit: cover;
+    }
+    </style>
+    </head>
+    <body>
+    
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="/"><h3><b>MUSIC DATABASE</b></h3></a>
+            </div>
+            <form class="form" method="GET" action="/sartist/" style="width:199px;">
+              <div class="input-group">
+                  <input type="text rounded" class="form-control" placeholder="Search artist" name="search" style="height:35px">
+                      <button class="btn btn-default" type="submit">
+                      <i class="glyphicon glyphicon-search" style="color:#191970; font-size:17px" ></i>
+                      </button>
+              </div>
+            </form>
+        </div>
+        
+        <div class="content">
+            {% block script %}{% endblock script %}
+            {% block content %}{% endblock content %}
+        </div>
+            
+    </body>
+</html>

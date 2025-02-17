@@ -1,0 +1,61 @@
+{% extends "music_world/skeleton.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block script %}
+{% endblock script %}
+
+{% block content %}
+<h2>{{message}}</h2>
+<div class="index" style="color:black; margin-left: 30px; font-weight: bold; padding-bottom: 20px;"><h2>Featured Playlists</h2></div>
+<div class="container-fluid">  
+<div class="row">
+    {% for d in data%}
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+                {% for s in d.images%}
+                    <a href="playlist/{{d.id}}">
+                        <img src="{{s.url}}" class="card-img-top" alt="">
+                    </a>
+                {%endfor%}
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase">{{d.name}}</h5>
+                        <p class="card-text">{{d.description}}</p>
+                        <a href="playlist/{{d.id}}" class="btn btn-info btn-block">View Details</a>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+</div>  
+</div>
+
+<div class="index" style="color:black; margin-left: 30px; font-weight: bold; padding-bottom: 20px;"><h2>New Albums</h2></div>
+<div class="container-fluid">   
+<div class="row">
+    {% for d in data1%}
+        <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+                {% for s in d.images%}
+                    {% if s.width == 640 %}
+                        <a href="album/{{d.id}}">
+                            <img src="{{s.url}}" class="card-img-top" alt="">
+                        </a>
+                    {%endif%}
+                {%endfor%}
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase">{{d.name}}</h5>
+                    <div class="mt-auto border border-danger">
+                        {% for s in d.artists%}
+                            <a class="active" href="/artist/{{s.id}}">{{s.name}}</a>
+                        {%endfor%}
+                        <a href="album/{{d.id}}" class="btn btn-info btn-block stretched-link">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+</div>
+</div>
+{% endblock content %}

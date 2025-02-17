@@ -1,0 +1,68 @@
+{% extends "music_world/skeleton.html" %}
+
+{% block title %}
+    Playlists
+{% endblock %}
+
+{% block script %}
+    <script>
+        function Change(num){
+            alert(num);
+            var minutes = Math.floor(Number(num) / 60000);
+            var seconds = ((Number(num) % 60000) / 1000).toFixed(0);
+            //ES6 interpolated literals/template literals 
+            //If seconds is less than 10 put a zero in front.
+            alert(minutes);
+            return `${minutes}:${(seconds < 10 ? "0" : "")}${seconds}`;
+        }
+    </script>
+{% endblock script %}
+
+{% block content %}
+    <h2>{{message}}</h2>
+    <div class="container-fluid" style="height:100%; width:100%">
+        {% for d in data.images%}
+            <img src="{{d.url}}" class="img-fluid" alt="Responsive image" style="height:45%;">
+        {%endfor%}
+        <br>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Artist</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Popularity</th>
+                <th scope="col">Preview</th>
+                <th scope="col">Audio Analysis</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in data.tracks.items%}
+                <tr>
+                <td>{{d.track.name}}</td>
+                <td>
+                {% for s in d.track.artists%}
+                <a class="active" href="/artist/{{s.id}}">{{s.name}}</a>
+                <br>
+                {%endfor%}
+                </td>
+                <td>{{d.track.duration_ms}}</td>
+                <td>{{d.track.popularity}}</td>
+                <td>
+                  <audio controls>
+                    <source src="{{d.track.preview_url}}" type="audio/ogg">
+                    <source src="{{d.track.preview_url}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio>
+                </td>
+                <td>
+                    <a href="/audio/{{d.track.id}}" target="_blank">
+                        <span class="glyphicon glyphicon-equalizer"></span>
+                    </a>
+                </td>
+                </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

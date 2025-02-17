@@ -1,0 +1,50 @@
+{% extends "music_world/skeleton.html" %}
+
+{% block title %}
+    Top Tracks
+{% endblock %}
+
+{% block script %}
+{% endblock script %}
+
+{% block content %}
+    <h2>{{message}}</h2>
+    <div class="container-fluid" style="height:100%; width:100%">
+        <img src="{{image}}" class="img-fluid" alt="Responsive image" style="height:45%;">
+        <br>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Release Date</th>
+                <th scope="col">Album</th>
+                <th scope="col">Popularity</th>
+                <th scope="col">Preview</th>
+                <th scope="col">Audio Analysis</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in data%}
+                <tr>
+                <td>{{d.name}}</td>
+                <td>{{d.album.release_date}}</td>
+                <td>{{d.album.name}}</td>
+                <td>{{d.popularity}}</td>
+                <td>
+                  <audio controls>
+                    <source src="{{d.preview_url}}" type="audio/ogg">
+                    <source src="{{d.preview_url}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio>
+                </td>
+                <td>
+                    <a href="/audio/{{d.id}}" target="_blank">
+                        <span class="glyphicon glyphicon-equalizer"></span>
+                    </a>
+                </td>
+                </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
