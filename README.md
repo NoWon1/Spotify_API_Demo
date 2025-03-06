@@ -166,10 +166,3 @@ For complete API documentation, visit [Spotify Web API Documentation](https://de
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## Acknowledgements
-
-- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
-- [Django Documentation](https://docs.djangoproject.com/)
-- [Bootstrap Documentation](https://getbootstrap.com/docs/3.4/)
-- [Chart.js](https://www.chartjs.org/)
