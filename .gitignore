@@ -67,6 +67,26 @@ venv.bak/
 *.swo
 *~
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Angular
+.angular/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+*.tsbuildinfo
+
+# Build outputs
+build/
+coverage/
+
 # OS
 .DS_Store
 .DS_Store?
