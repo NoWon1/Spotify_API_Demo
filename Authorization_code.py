@@ -1,20 +1,43 @@
+import os
+import base64
+import requests
+from flask import Flask, redirect, request, render_template
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
 app = Flask(__name__)
 
+def get_spotify_config():
+    """Get Spotify configuration from environment variables"""
+    client_id = os.getenv('SPOTIFY_CLIENT_ID')
+    client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+    
+    if not client_id or not client_secret:
+        raise ValueError("SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET must be set in environment variables")
+    
+    return {
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'redirect_uri': os.getenv('SPOTIFY_REDIRECT_URI', 'https://ed-6488463376777216.educative.run/callback'),
+        'scope': os.getenv('SPOTIFY_SCOPE', 'playlist-read-collaborative playlist-modify-public playlist-modify-private playlist-read-private user-library-read user-library-modify')
+    }
 
 #  Client Keys
-CLIENT_ID = "ac0aee299d4b478fbcfcaf4b4e1fb081"
-CLIENT_SECRET = "d3e4da947ecc4e2d99bec3955f2700bf"
+config = get_spotify_config()
+CLIENT_ID = config['client_id']
+CLIENT_SECRET = config['client_secret']
 # Encoding values for header
-ENCODED_CLIENT_SECRET = base64.b64encode(b'ac0aee299d4b478fbcfcaf4b4e1fb081:d3e4da947ecc4e2d99bec3955f2700bf')
-ENCODED_CLIENT_SECRET=ENCODED_CLIENT_SECRET.decode("utf-8")
+ENCODED_CLIENT_SECRET = base64.b64encode(f'{CLIENT_ID}:{CLIENT_SECRET}'.encode()).decode("utf-8")
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
 SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 
 # Server-side Parameters
-REDIRECT_URI = "https://ed-6488463376777216.educative.run/callback"
-SCOPE = "playlist-read-collaborative playlist-modify-public playlist-modify-private playlist-read-private user-library-read user-library-modify"
+REDIRECT_URI = config['redirect_uri']
+SCOPE = config['scope']
 RESPONSE_TYPE = "code"
 GRANT_TYPE = 'authorization_code'
 
@@ -40,5 +63,3 @@ def callback():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-validation()

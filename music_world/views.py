@@ -5,12 +5,24 @@ from django.http import HttpResponse
 import json
 import requests
 from django.views.generic import TemplateView
+import os
+from dotenv import load_dotenv
 
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer BQDkTqkJlSK1IOFbMmO_aUrKqRA-57V3NikvIkt9K2lHJKXZ9HVop3HKOJEwYbd3YybxKdS9g0hU6F389vigqoc_ELSFXinRsXUwq__foNElZsQ61xuKcEfT75KRjhKXe9tyr1nYC5A'
-}
+# Load environment variables
+load_dotenv()
+
+def get_spotify_headers():
+    """Get Authorization headers for Spotify API requests"""
+    access_token = os.getenv('SPOTIFY_ACCESS_TOKEN')
+    if not access_token:
+        raise ValueError("SPOTIFY_ACCESS_TOKEN not found in environment variables")
+    
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {access_token}'
+    }
 def home(request):
+    headers = get_spotify_headers()
     data = requests.get("https://api.spotify.com/v1/browse/featured-playlists?limit=3", headers=headers)
     data1 = requests.get("https://api.spotify.com/v1/browse/new-releases?limit=3", headers=headers)
     status_code=data.status_code
@@ -26,6 +38,7 @@ def home(request):
             "data": data,"message":data['error']['message']})
 
 def playlist(request,id):
+    headers = get_spotify_headers()
     data = requests.get(f'https://api.spotify.com/v1/playlists/{id}', headers=headers)
     status_code=data.status_code
     data=data.json()
@@ -36,6 +49,7 @@ def playlist(request,id):
             "data": data,"message":data['error']['message']})
 
 def album(request,id):
+    headers = get_spotify_headers()
     data = requests.get(f'https://api.spotify.com/v1/albums/{id}', headers=headers)
     status_code=data.status_code
     data=data.json()
@@ -46,6 +60,7 @@ def album(request,id):
         "data": data,"message":data['error']['message']})
 
 def sartist(request):
+    headers = get_spotify_headers()
     symbol = request.GET.get("search")
     data = requests.get(f'https://api.spotify.com/v1/search?q={symbol}&type=artist', headers=headers)
     status_code=data.status_code
@@ -57,6 +72,7 @@ def sartist(request):
         "data": data,"message":data['error']['message']})
 
 def artist(request,id):
+    headers = get_spotify_headers()
     data = requests.get(f'https://api.spotify.com/v1/artists/{id}/top-tracks?market=US', headers=headers)
     status_code=data.status_code
     data=data.json()
@@ -68,6 +84,7 @@ def artist(request,id):
             "data": data,"message":data['error']['message']}) 
 
 def audio(request,id):
+    headers = get_spotify_headers()
     data = requests.get(f'https://api.spotify.com/v1/audio-features/{id}', headers=headers)
     status_code=data.status_code
     data=data.json()

@@ -1,7 +1,21 @@
 import json
-
+import os
 import requests
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
+
+def get_spotify_headers():
+    """Get Authorization headers for Spotify API requests"""
+    access_token = os.getenv('SPOTIFY_ACCESS_TOKEN')
+    if not access_token:
+        raise ValueError("SPOTIFY_ACCESS_TOKEN not found in environment variables")
+    
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {access_token}'
+    }
 
 url = ('https://api.spotify.com/v1/audio-features?'
        'ids=11dFghVXANMlKmJXsNCbNl,7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ')
@@ -10,10 +24,7 @@ url = ('https://api.spotify.com/v1/audio-features?'
        #4VqPOruhp5EdPBeR92t6lQ is the Spotify ID of the song Uprising
        
 
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer BQADKKbdbp_eSqNYP95WoXgUgobcdK_6aV1a_oO9sXommIo1y-_JVoL6TDdpb3JcAw48ijY-RM0q2d4W6Y0ZOoUv0ZEG-MrHca2srXEuL0uL_XydFVNQvjNUD0-gfBENWiLluiZUrBM'
-}
+headers = get_spotify_headers()
 
 response = requests.request("GET", url, headers=headers)
 print(json.dumps(response.json(), indent=4))
