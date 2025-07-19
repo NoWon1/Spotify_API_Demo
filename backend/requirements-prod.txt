@@ -1,0 +1,11 @@
+# Production requirements
+gunicorn==21.2.0
+whitenoise==6.5.0
+psycopg2-binary==2.9.7
+
+# Environment and configuration
+python-decouple==3.8
+
+# Additional production packages
+sentry-sdk==1.32.0
+django-debug-toolbar==4.2.0

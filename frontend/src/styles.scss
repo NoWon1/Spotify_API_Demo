@@ -1,0 +1,174 @@
+/* Global Styles */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Custom Color Palette - Spotify Inspired */
+:root {
+  --spotify-green: #1db954;
+  --spotify-dark: #191414;
+  --spotify-light: #ffffff;
+  --spotify-gray: #b3b3b3;
+  --spotify-dark-gray: #535353;
+  --background-dark: #121212;
+  --background-light: #181818;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+}
+
+/* Material Design Overrides */
+.mat-toolbar.mat-primary {
+  background: var(--spotify-dark) !important;
+  color: var(--text-primary) !important;
+}
+
+.mat-button.mat-primary, .mat-raised-button.mat-primary {
+  background-color: var(--spotify-green) !important;
+  color: var(--text-primary) !important;
+}
+
+.mat-card {
+  background: var(--background-light) !important;
+  color: var(--text-primary) !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.mat-form-field {
+  color: var(--text-primary) !important;
+}
+
+.mat-form-field .mat-input-element {
+  color: var(--text-primary) !important;
+}
+
+.mat-form-field-label {
+  color: var(--text-secondary) !important;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.bg-dark {
+  background-color: var(--background-dark) !important;
+}
+
+.bg-light {
+  background-color: var(--background-light) !important;
+}
+
+.spotify-green {
+  color: var(--spotify-green) !important;
+}
+
+.spotify-green-bg {
+  background-color: var(--spotify-green) !important;
+}
+
+/* Layout Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+/* Custom Components */
+.track-card, .artist-card, .album-card, .playlist-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.track-card:hover, .artist-card:hover, .album-card:hover, .playlist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 8px;
+  }
+  
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--spotify-dark-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spotify-gray);
+}
